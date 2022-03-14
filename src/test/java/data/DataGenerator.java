@@ -6,7 +6,6 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Value;
-import lombok.val;
 
 import java.util.Locale;
 
@@ -34,9 +33,6 @@ public class DataGenerator {
                 .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
                 .then() // "тогда ожидаем"
                 .statusCode(200); // код 200 OK
-        // TODO: отправить запрос на указанный в требованиях path, передав в body запроса объект user
-        //  и не забудьте передать подготовленную спецификацию requestSpec.
-        //  Пример реализации метода показан в условии к задаче.
     }
 
     public static String getRandomLogin() {

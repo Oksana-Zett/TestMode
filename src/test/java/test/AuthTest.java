@@ -3,40 +3,20 @@ package test;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import data.DataGenerator;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.time.Duration;
-
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.requestSpecification;
-//import static data.DataGenerator.Registration.getRegisteredUser;
-//import static data.DataGenerator.Registration.getUser;
-//import static data.DataGenerator.getRandomLogin;
-//import static data.DataGenerator.getRandomPassword;
 
 
 public class AuthTest {
 
-//    private static RequestSpecification requestSpec = new RequestSpecBuilder()
-//            .setBaseUri("http://localhost")
-//            .setPort(9999)
-//            .setAccept(ContentType.JSON)
-//            .setContentType(ContentType.JSON)
-//            .log(LogDetail.ALL)
-//            .build();
-
     @BeforeEach
     void setup() {
-        Configuration.headless = true;
+        //Configuration.headless = true;
         open("http://localhost:9999");
     }
 
@@ -51,7 +31,7 @@ public class AuthTest {
         $("[data-test-id='login'] input").sendKeys(user.getLogin());
         $("[data-test-id='password'] input").sendKeys(user.getPassword());
         $(byText("Продолжить")).click();
-        $("[class='App_appContainer__3jRx1']").shouldHave(Condition.text("  Личный кабинет"));
+        $(byText("Личный кабинет")).shouldBe(Condition.visible);
     }
 
     @Test
@@ -63,7 +43,6 @@ public class AuthTest {
         $("[data-test-id='password'] input").sendKeys(user.getPassword());
         $(byText("Продолжить")).click();
         $("[class='notification__content']").shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
-//        $("[data-test-id='error-notification'] notification__content").shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
     }
 
     @Test
